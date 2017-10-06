@@ -19,7 +19,7 @@
 &emsp;`<property name="maxConnectionsPerPartition" value="${aliLibrary.db.maxConnectionsPerPartition}" />`  
 &emsp;<font color=green>//每个分区最小的连接数</font>  
 &emsp;`<property name="minConnectionsPerPartition" value="${aliLibrary.db.minConnectionsPerPartition}" />`  
-&emsp;<font color=green>//分区数 ，默认值2，最小1，推荐3-4，视应用而定</font>
+&emsp;<font color=green>//分区数 ，默认值2，最小1，推荐3-4，视应用而定</font>  
 &emsp;`<property name="partitionCount" value="${aliLibrary.db.partitionCount}" />`  
 &emsp;<font color=green>//每次去拿数据库连接的时候一次性要拿几个,默认值：2</font>   
 &emsp;`<property name="acquireIncrement" value="${aliLibrary.db.acquireIncrement}" />`  
