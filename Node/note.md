@@ -29,7 +29,30 @@ NPM是随同Node.js一起安装的包管理工具。常见的使用场景有以�
 3. `express --version`//查看express版本
 4. `npm update -g express`//更新已安装的express
 
-#### 使用
-1. `express app_name`//创建项目
-2. ``
-http://www.jb51.net/article/110033.htm
+#### 使用 (http://www.jb51.net/article/110033.htm)
+1. 创建项目
+   >`express app_name`//express默认以jade作为模板引擎，模板文件为.jade类型；jade的语法与html有较大差异，对缩进也是要求严格的
+   >`express app_name -e`//在项目名称的后面添加 -e 那么创建出来的模板文件就是.ejs类型，语法是与html相同的
+2. 将ejs文件改为html(不是必须)
+   > 若希望模板文件的后缀为.html(通常只是为了看着更舒服)，那么在手动将.ejs换成.html后，还需要对app.js文件进行设置
+
+   >var ejs = require('ejs');  
+    app.engine('.html', ejs.__express);  
+    app.set('view engine', 'html');  
+    //app.set('view engine', 'ejs');
+
+   >原app.js文件  
+   var path = require('path');
+   ...  
+   // view engine setup  
+   app.set('views', path.join(__dirname, 'views'));  
+   app.set('view engine', 'ejs');  
+   修改后app.js  
+   var path = require('path');  
+   ...  
+   var ejs = require('ejs');  
+   ...  
+   // view engine setup  
+   app.set('views', path.join(__dirname, 'views'));  
+   app.engine('.html', ejs.__express);  
+   app.set('view engine', 'html');
