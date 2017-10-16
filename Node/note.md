@@ -32,7 +32,7 @@ NPM是随同Node.js一起安装的包管理工具。常见的使用场景有以�
 #### 使用 (http://www.jb51.net/article/110033.htm)
 1. 创建项目
    >`express app_name`//express默认以jade作为模板引擎，模板文件为.jade类型；jade的语法与html有较大差异，对缩进也是要求严格的
-   >`express app_name -e`//在项目名称的后面添加 -e 那么创建出来的模板文件就是.ejs类型，语法是与html相同的
+   >`express app_name --view=ejs`//在项目名称的后面添加 -e 那么创建出来的模板文件就是.ejs类型，语法是与html相同的
 2. 将ejs文件改为html(不是必须)
    > 若希望模板文件的后缀为.html(通常只是为了看着更舒服)，那么在手动将.ejs换成.html后，还需要对app.js文件进行设置
 
@@ -47,7 +47,8 @@ NPM是随同Node.js一起安装的包管理工具。常见的使用场景有以�
    // view engine setup  
    app.set('views', path.join(__dirname, 'views'));  
    app.set('view engine', 'ejs');  
-   修改后app.js  
+
+   >修改后app.js  
    var path = require('path');  
    ...  
    var ejs = require('ejs');  
@@ -56,3 +57,84 @@ NPM是随同Node.js一起安装的包管理工具。常见的使用场景有以�
    app.set('views', path.join(__dirname, 'views'));  
    app.engine('.html', ejs.__express);  
    app.set('view engine', 'html');
+3. 安装依赖包
+   >进入项目文件夹，执行：`npm install`  
+   下载package.json中记录的所有依赖包到node_modules文件夹
+4. 启动服务
+   >启动：`npm start`  
+   监听bin/www,默认端口为3000，可在www文件中修改
+5. 自动重启服务
+   >打开package.json可以看见，监听bin/www文件的命令是node，使用node监听将会导致每次修改代码之后，需要手动重启服务。可以使用nodemon进行自动重启。  
+   1.`npm install -g nodemon`//全局安装 `nodemon -v`//查看版本  
+   2.将package.json中的代码修改为:  
+   `"start":"nodemon ./bin/www"`  
+   3.重新执行`npm start`
+
+### Express代码相关
+#### app.js文件(项目入口文件)
+```
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+//var multer = require('multer'); 
+
+var index = require('./routes/index');
+var users = require('./routes/users');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+//获取post请求的参数时需要这个模块
+app.use(bodyParser.json());// for parsing application/json
+app.use(bodyParser.urlencoded({ extended: false }));// for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+
+app.use(cookieParser());
+//静态文件呈现
+app.use(express.static(path.join(__dirname, 'public')));
+
+//自定义中间件，在所有http请求时都会调用，中间件是顺序执行的，next()表示执行下一个中间件，next(data)中可以添加参数，在下一个中间件中取同样的名称就可以获取传递的参数
+//没有挂载的中间件，所有http请求都会调用
+// app.use(function(req, res, next){
+//   console.log('自定义中间件');
+//   next();//调取下一个中间件，如果没有这个，http请求将被挂起，不会返回任何信息
+// });
+
+//匹配http请求路由，如果匹配上就会执行中间件里的函数，最终会返回信息。
+//同时执行的函数中不会包含有next(),所以下面的404报错中间件将不会执行，如果没有匹配上，将会调用404中间件
+app.use('/', index);
+app.use('/users', users);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;//Not Found
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;
+```
+* `app.all('path', function(){...})` //特殊路由，所有的http请求都会执行里面的function
+* `req.query.name` //获取get请求的name参数：http://localhost:8080/user?name=xxx&age=xxx
+* `req.body.name` //获取post请求的name参数，data:{'name':'xxx'}
+* `res.json({'message':'respond with a resource'});`  //返回{'meaasge':'respond with a resource'}
