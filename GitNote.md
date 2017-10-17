@@ -68,3 +68,11 @@
 * `git pull <远程主机名> <远程分支名>` 拉取远程分支并且合并到当前分支
 * `git push <远程主机名> <本地分支名>` 推送本地分支到远程master主分支
 * `git push -u origin master` 将本地master推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用`git push`了。
+
+```
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/Vincent-R/Emrs.git
+git push -u origin master
+```
