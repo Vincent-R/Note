@@ -78,3 +78,13 @@ $center       范围醒询，圆形范围（基于LBS）
 $centerSphere　　范围查询，球形范围（基于LBS）
 $slice　　　　查询字段集合中的元素（比如从第几个之后，第N到第M个元素）
 ```
+
+* 设置Mongo为后台服务(admin打开)
+`mongod.exe --logpath D:\data\mongodb.log --logappend --dbpath D:\data\db --directoryperdb --serviceName MongoDBServer --install` //安装服务
+`net start MongoDBServer` //启动服务
+
+* 导出指定数据库
+`mongodump -h 127.0.0.1 -d emrs -o v:/`
+
+* 导入指定数据库
+`mongorestore -d emrs v:/emrs/`
