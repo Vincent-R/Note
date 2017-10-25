@@ -61,3 +61,7 @@ export default new Router({
   ]
 })
 ```
+
+* vue-select插件
+`<v-select v-model="selectP" :options="options" multiple></v-select>` //多选
+`<v-select v-model="selectP" :options="options"></v-select>` //单选
