@@ -65,3 +65,6 @@ export default new Router({
 * vue-select插件
 `<v-select v-model="selectP" :options="options" multiple></v-select>` //多选
 `<v-select v-model="selectP" :options="options"></v-select>` //单选
+
+* `.$emit` 子组件向父组件传参
+* `.$broadcast` 父组件向子组件传参
