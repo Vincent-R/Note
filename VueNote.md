@@ -68,3 +68,5 @@ export default new Router({
 
 * `.$emit` 子组件向父组件传参
 * `.$broadcast` 父组件向子组件传参
+
+* `v-for="(item, idex) in items"` item和index的位置不可变换

@@ -138,3 +138,8 @@ module.exports = app;
 * `req.query.name` //获取get请求的name参数：http://localhost:8080/user?name=xxx&age=xxx
 * `req.body.name` //获取post请求的name参数，data:{'name':'xxx'}
 * `res.json({'message':'respond with a resource'});`  //返回{'meaasge':'respond with a resource'}
+* `strict mode` javascript严格模式。用于消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;消除代码运行的一些不安全之处，保证代码运行的安全；提高编译器效率，增加运行速度；为未来新版本的Javascript做好铺垫。
+
+### 模块
+* `config-lite` config-lite 是一个轻量的读取配置文件的模块。config-lite 会根据环境变量`(NODE_ENV)`的不同从当前执行进程目录下的 config 目录加载不同的配置文件。如果不设置 `NODE_ENV`，则读取默认的 default 配置文件，如果设置了 `NODE_ENV`，则会合并指定的配置文件和 default 配置文件作为配置，config-lite 支持 .js、.json、.node、.yml、.yaml 后缀的文件。
+* `babel`是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。
