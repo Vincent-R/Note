@@ -106,3 +106,34 @@ let p1 = new Promise(
             console.log('Handle rejected promise ('+reason+') here.');
         });
 ```
+
+### Fetch
+
+#### 示例
+* 一种任然还有Callback影子的Promise写法
+```
+fetch(url).then(function(response) {
+  return response.json();
+}).then(function(data) {
+  console.log(data);
+}).catch(function(e) {
+  console.log("Oops, error");
+});
+
+//使用ES6箭头函数之后
+fetch(url).then(response => response.json())
+  .then(data => console.log(data))
+  .catch(e => console.log("Oops, error", e))
+```
+
+* 使用async/await来做最终的优化
+```
+try {
+  let response = await fetch(url);
+  let data = response.json();
+  console.log(data);
+} catch(e) {
+  console.log("Oops, error", e);
+}
+// 注：这段代码如果想运行，外面需要包一个 async function
+```
