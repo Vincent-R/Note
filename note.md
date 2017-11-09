@@ -144,3 +144,6 @@ module.exports = app;
 * `config-lite` config-lite 是一个轻量的读取配置文件的模块。config-lite 会根据环境变量`(NODE_ENV)`的不同从当前执行进程目录下的 config 目录加载不同的配置文件。如果不设置 `NODE_ENV`，则读取默认的 default 配置文件，如果设置了 `NODE_ENV`，则会合并指定的配置文件和 default 配置文件作为配置，config-lite 支持 .js、.json、.node、.yml、.yaml 后缀的文件。
 * `babel`是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。
 * `connect-mongo` connect-mongo用于将session持久化到mongodb数据库
+
+## 与Node相关
+* `pm2` //pm2 是一个带有负载均衡功能的Node应用的进程管理器.
