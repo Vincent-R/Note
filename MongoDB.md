@@ -88,3 +88,36 @@ $slice　　　　查询字段集合中的元素（比如从第几个之后，�
 
 * 导入指定数据库
 `mongorestore -d emrs v:/emrs/`
+
+## MongoDB访问权限控制
+
+* 在默认情况下，MongoDB没有管理员账户，所有人都可以直接访问数据库。MongoDB的用户分为两种，一种是admin用户，另一种是特定数据库用户。admin用户拥有最高的权限，而特定数据库用户则只能访问特定的数据库。
+
+* `mongod -dbpath d:\work\data\mongodb\db -auth` //MongoDB通过`-auth`开启权限验证
+
+* `db.auth('用户名','密码')` //登录验证用户，开启权限验证后，只有进行登录验证后才可以操作数据库。不同数据库只验证本数据库中的用户。超级管理员登陆后，可以对所有数据库进行操作；特定数据库用户只对规定的数据库有操作权限。
+
+* 添加超级管理员(在为开启权限验证时添加)
+```
+use admin
+db.createUser(
+  {
+    user: "用户名",
+    pwd: "用户密码",
+    roles: [ { role: "root", db: "admin" } ] //root是角色，详情可查询官网
+  }
+)
+
+```
+
+* 添加特点数据库用户
+```
+use dbtest
+db.createUser(
+  {
+    user: "用户名",
+    pwd: "用户密码",
+    roles: [ { role: "dbOwner", db: "dbtest" } ]
+  }
+)
+```
