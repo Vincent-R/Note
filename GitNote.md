@@ -76,3 +76,9 @@ git commit -m "first commit"
 git remote add origin https://github.com/Vincent-R/Emrs.git
 git push -u origin master
 ```
+
+```
+远程分支与当前分支关联(关联后可以直接使用git pull/push)
+git branch --set-upstream-to=<远程主机名>/<远程分支名> <当前分支名>
+若出现错误时，可尝试 git checkout <想要关联的本地分支名>
+```
