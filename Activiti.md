@@ -20,3 +20,7 @@
 * 标志任务完成的方法有两种。其中包含的参数是给下一个任务使用的
 > 方法一：`formService.submitTaskFormData(taskId, variables);`  
 方法二：`taskService.complete(taskId, variables);`
+
+### 任务签收
+* taskService.claim和taskService.setAssignee
+> claim与setAssignee区别在于claim领取之后别人不可以再领取不然会报错而setAssignee则不然
